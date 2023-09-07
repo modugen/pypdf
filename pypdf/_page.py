@@ -1179,8 +1179,14 @@ class PageObject(DictionaryObject):
         pdf = self.indirect_reference.pdf
 
         rename = {}
-        original_resources = cast(DictionaryObject, self[PG.RESOURCES].get_object())
-        page2resources = cast(DictionaryObject, page2[PG.RESOURCES].get_object())
+        if PG.RESOURCES in self:
+            original_resources = cast(DictionaryObject, self[PG.RESOURCES].get_object())
+        else:
+            original_resources = cast(DictionaryObject, {})
+        if PG.RESOURCES in page2:
+            page2resources = cast(DictionaryObject, page2[PG.RESOURCES].get_object())
+        else:
+            page2resources = cast(DictionaryObject, {})
 
         for res in (
             RES.EXT_G_STATE,
